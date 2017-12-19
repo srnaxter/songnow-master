@@ -1,0 +1,18 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <div class="container">
+
+        <form class="form-signin" method="POST" {#action="{{ 'invitacion' | url }}"#}>
+            <h2 class="form-signin-heading">Invitacion</h2>
+            <div class="form-group {% if errors['inputEmail'] %}has-error{% endif %}">
+                <label for="inputEmail" class="sr-only">Email</label>
+                <input type="text" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email" autofocus>
+            </div>
+            {{ generateAlert(errors, 'inputEmail') }}
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Pedir Invitacion</button>
+        </form>
+
+    </div> <!-- /container -->
+{% endblock %}

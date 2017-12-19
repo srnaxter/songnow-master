@@ -1,0 +1,168 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-lg-2">
+                    <img src="{{ listmusic.image }}" alt="{{ listmusic.name }}" class="logo">
+                </div>
+                <div class="col-lg-10 title">
+                    <div class="col-lg-12">
+                        <h1>{{ listmusic.name|raw }}</h1>
+                    </div>
+                    <div class="col-lg-5">
+                        <p>Genero: <strong>{{  listmusic.genero | raw }}</strong></p>
+                        <p>Año: <strong>{{  listmusic.anio | raw }}</strong></p>
+                    </div>
+                    <div class="col-lg-5">
+                        <p>Recomiendas: <strong>{{  listmusic.recomiendas | raw }}</strong></p>
+                        <p>Año creacion: <strong>{{  listmusic.aniocreation | raw }}</strong></p>
+                    </div>
+                </div>
+
+            </div>
+            <hr>
+
+            <div class="row data">
+                <div class="col-lg-2">
+                    <p><strong>Creado: </strong></p>
+                </div>
+                <div class="col-lg-10">
+                    {% set creados = listmusic.creado|split(', ') %}
+                    {% for creado in creados %}
+                    <span class="label label-primary">{{ creado }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row data">
+                <div class="col-lg-2">
+                    <p><strong>Duración: </strong></p>
+                </div>
+                <div class="col-lg-10">
+                    {% set duracions = listmusic.duracion|split(', ') %}
+                    {% for duracion in duracions %}
+                        <span class="label label-success">{{ duracion }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row data">
+                <div class="col-lg-2">
+                    <p><strong>Lugar encontrado: </strong></p>
+                </div>
+                <div class="col-lg-10">
+                    {% set lugarencontrados = listmusic.lugarencontrado|split(', ') %}
+                    {% for lugarencontrado in lugarencontados %}
+                        <span class="label label-info">{{ lugarencontrado }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row data">
+                <div class="col-lg-2">
+                    <p><strong>Origen: </strong></p>
+                </div>
+                <div class="col-lg-10">
+                    {% set countries = listmusic.origin|split(', ') %}
+                    {% for country in countries %}
+                        <span class="label label-default">{{ country }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row data">
+                <div class="col-lg-2">
+                    <p><strong>Album: </strong></p>
+                </div>
+                <div class="col-lg-10">
+                    <p> {{ listmusic.album }}</p>
+                </div>
+            </div>
+            <div class="row data">
+                <div class="col-lg-2">
+                    <p><strong>Youtube: </strong></p>
+                </div>
+                <div class="col-lg-10">
+                    <p> {{ listmusic.youtube }} </p>
+                </div>
+            </div>
+            <div class="row data">
+                <div class="col-lg-2">
+                    <p><strong>Valoración: </strong></p>
+                </div>
+                <div class="col-lg-10">
+                    <p>{{ listmusic.valoracion }}</p>
+                </div>
+            </div>
+            <div class="row data">
+                <div class="col-lg-2">
+                    <p><strong>Link: </strong></p>
+                </div>
+                <div class="col-lg-10">
+                    <p>{{ listmusic.link }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row data">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Lyrics</div>
+                        <div class="panel-body">{{ listmusic.description }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row data">
+                <div class="col-lg-12">
+                    <form class="form-comment" method="POST">
+                        <h2 class="form-comment-heading">Deja tu Comentario</h2>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group  {%  if errors['name'] %}has-error{% endif %}">
+                                    <label for="inputName">Nombre</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre de usuario" value="">
+                                </div>
+                                {{ generateAlert(errors, 'name') }}
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group  {%  if errors['email'] %}has-error{% endif %}">
+                                    <label for="inputName">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="email" value="">
+                                </div>
+                                {{ generateAlert(errors, 'email') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group {% if errors['comment'] %}has-error{% endif %}">
+                            <label for="inputDescription">Comentario</label>
+                            <textarea class="form-control" name="comment" id="comment" rows="5"></textarea>
+                        </div>
+                        {{ generateAlert(errors, 'comment') }}
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Añadir Comentario</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h2>Opiniones de los usuarios</h2>
+            {% if listmusic.comments|length == 0 %}
+                <h4>Todavía no hay comentarios</h4>
+            {% else %}
+                {% for comment in listmusic.comments %}
+                    <h4>Según {{ comment.user }}:</h4>
+                    <p>{{ comment.text }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+    </div>
+
+
+
+
+
+</div>
+
+{% endblock %}
+

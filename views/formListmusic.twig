@@ -1,0 +1,139 @@
+{% extends "layout.twig" %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ '' | url }}css/bootstrap-tokenfield.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ webInfo.h1 }}</h1>
+    <form method="post">
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group  {%  if errors['name'] %}has-error{% endif %}">
+                    <label for="inputName">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="listmusic Name" value="{{ listmusic.name }}">
+                </div>
+                {{ generateAlert(errors, 'name') }}
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="inputImage">Image</label>
+                    <input type="text" class="form-control" id="inputImage" name="image" placeholder="listmusic Image URL" value="{{ listmusic.image }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group {% if errors['genero'] %}has-error{%  endif %}">
+                    <label for="inputGenero">Genero</label>
+                    {{ generateSelect(['Reggaeton', 'Trap', 'Flamenco', 'Other'], listmusic['genero'], 'genero', false) }}
+                </div>
+                {{  generateAlert(errors, 'genero') }}
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group{% if errors['aniocreation'] %}has-error{% endif %}">
+                    <label for="inputAnioCreation">Año Creacion</label>
+                    {{ generateSelect(["2000", "2005", "2010", "2015", "2017"], listmusic['aniocreation'], 'aniocreation') }}
+                </div>
+                {{ generateAlert(errors, 'aniocreation') }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group {% if errors['anio'] %}has-error{% endif %}">
+                    <label for="inputAnio">Año Song</label>
+                    <input type="text" class="form-control" id="inputanio" name="anio" value="{{ listmusic.anio }}" />
+                </div>
+                {{ generateAlert(errors, 'anio') }}
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group {% if errors['origin'] %}has-error{% endif %}">
+                    <label for="inputOrigin">Origen</label>
+                    <input type="text" class="form-control" id="inputOrigin" name="origin" value="{{ listmusic.origin }}">
+                </div>
+                {{ generateAlert(errors, 'origin') }}
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group {% if errors['aniocreation'] %}has-error{% endif %}">
+                    <label for="inputAnioCreation">Año Creation</label>
+                    {{ generateSelect(["2000", "2005", "2010", "2015", "2017"], listmusic['aniocreation'], 'aniocreation') }}
+                </div>
+                {{ generateAlert(errors, 'aniocreation') }}
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="inputRecomiendas">Recomiendas la musica</label>
+                    <input type="text" class="form-control" id="inputRecomiendas" name="recomiendas" placeholder="Recomiendas esta musica" value="{{ listmusic.recomiendas }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group {% if errors['album']['required'] %}has-error{% endif %}">
+                    <label for="inputAlbum">Album</label>
+                    <input type="text" class="form-control" id="inputAlbum" name="album" placeholder="Album" value="{{ listmusic.album }}">
+                </div>
+                {{ generateAlert(errors, 'album') }}
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="inputYoutube">Youtube</label>
+                    <input type="text" class="form-control" id="inputYoutube" name="youtube" placeholder="Link Youtube" value="{{ listmusic.youtube }}">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="inputValoracion">Valoracion</label>
+                    <input type="text" class="form-control" id="inputValoracion" name="forum" placeholder="Valoracion" value="{{ listmusic.valoracion }}">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="inputLink">Link</label>
+                    <input type="text" class="form-control" id="inputLink" name="link" placeholder="Song Link" value="{{ listmusic.link }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group {% if errors['creado'] %}has-error{% endif %}">
+            <label for="inputCreado">Creado</label>
+            <input type="text" class="form-control" id="inputCreado" name="creado" value="{{ listmusic.creado }}">
+        </div>
+        {{  generateAlert(errors, 'creado') }}
+        <div class="form-group {% if errors['duracion'] %}has-error{% endif %}">
+            <label for="inputDuracion">Duracion</label>
+            <input type="text" class="form-control" id="inputDuracion" name="duracion" value="{{  listmusic.duracion }}">
+        </div>
+        {{ generateAlert(errors, 'duracion') }}
+        <div class="form-group {%  if errors['lugarencontrado'] %}has-error{% endif %}">
+            <label for="inputLugarencontrado">Lugar encontrado:</label>
+            <input type="text" class="form-control" id="inputLugarencontrado" name="lugarencontrado" value="{{ listmusic.lugarencontrado }}">
+        </div>
+        {{ generateAlert(errors, 'lugarencontrado') }}
+        <div class="row">
+
+        </div>
+
+        <div class="form-group {% if errors['description'] %}has-error{% endif %}">
+            <label for="inputDescription">Description</label>
+            <textarea class="form-control" name="description" id="inputDescription" rows="5">{{ listmusic.description }}</textarea>
+        </div>
+        {{ generateAlert(errors, 'description') }}
+
+        <input type="hidden" name="_method" value="{{ webInfo.method }}">
+        <button type="submit" class="btn btn-default">{{ webInfo.submit }}</button>
+    </form>
+</div><!-- /.container -->
+{% endblock %}
+
+{% block js %}
+    <script src="{{ '' | url }}js/bloodhound/bloodhound.js"></script>
+    <script src="{{ '' | url }}js/typehead/typehead.js"></script>
+    <script src="{{ '' | url }}js/tokenfield/bootstrap-tokenfield.min.js"></script>
+    <script src="{{ '' | url }}js/tokenfield/tokenfield-listmusicada.js"></script>
+{% endblock %}
